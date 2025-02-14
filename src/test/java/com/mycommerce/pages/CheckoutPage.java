@@ -4,11 +4,12 @@ import com.microsoft.playwright.Download;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
+import com.mycommerce.utilities.PlaywrightManager;
 import lombok.Getter;
 
 @Getter
 public class CheckoutPage {
-    private final Page page;
+    private Page page;
     // ============== Locators ==================
     private final Locator addressDetailsHeading;
 
@@ -30,8 +31,8 @@ public class CheckoutPage {
 
     private final Locator downloadButton;
 
-    public CheckoutPage(Page page) {
-        this.page = page;
+    public CheckoutPage() {
+        this.page = PlaywrightManager.getPage();
         this.addressDetailsHeading = page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Address Details"));
         this.yourDeliveryAddress = page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Your delivery address"));
         this.yourBillingAddress = page.getByRole(AriaRole.HEADING,new Page.GetByRoleOptions().setName("Your billing address"));

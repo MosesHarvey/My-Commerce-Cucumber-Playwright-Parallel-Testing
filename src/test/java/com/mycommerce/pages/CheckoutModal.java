@@ -2,13 +2,14 @@ package com.mycommerce.pages;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.mycommerce.utilities.PlaywrightManager;
 
 public class CheckoutModal {
-    private final Page page;
+    private Page page;
     private final Locator registerAndLoginBtn;
 
-    public CheckoutModal(Page page) {
-        this.page = page;
+    public CheckoutModal() {
+        this.page = PlaywrightManager.getPage();
         this.registerAndLoginBtn = page.locator("a[href='/login'] u");
     }
 

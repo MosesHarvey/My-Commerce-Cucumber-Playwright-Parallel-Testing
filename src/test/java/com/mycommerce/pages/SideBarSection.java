@@ -5,6 +5,7 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.mycommerce.appdata.AppConstant;
 import com.mycommerce.utilities.ConfigReader;
+import com.mycommerce.utilities.PlaywrightManager;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Random;
 
 @Getter
 public class SideBarSection {
-    private final Page page;
+    private Page page;
 
         // =========left side bar =========
         private final Locator categories;
@@ -21,9 +22,8 @@ public class SideBarSection {
         private final Locator brands;
 
 
-    public SideBarSection(Page page) {
-        this.page = page;
-
+    public SideBarSection() {
+        this.page = PlaywrightManager.getPage();
         // =========left side bar =========
         this.categories = page.locator("#accordian.panel-title");
         this.categoryToggles = page.locator("#accordian h4 a");

@@ -1,8 +1,10 @@
 package com.mycommerce.steps;
 
-import com.microsoft.playwright.Page;
 import com.mycommerce.appdata.AppConstant;
-import com.mycommerce.pages.*;
+import com.mycommerce.pages.AddedModal;
+import com.mycommerce.pages.CartPage;
+import com.mycommerce.pages.ProductDetailPage;
+import com.mycommerce.pages.ProductSection;
 import com.mycommerce.utilities.ConfigReader;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,28 +12,18 @@ import io.cucumber.java.en.When;
 import java.util.Map;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartStep {
-    private final Page page;
-    private  HeaderComponent headerComponent;
-    private BasePage homePage;
-    private ProductSection productSection;
-    private  CartPage cartPage;
-    private  ProductDetailPage productDetailPage;
-    private  AddedModal addedModal;
-    private BasePage basePage;
 
-    public CartStep() {
-        this.page = Hooks.getPage();
-        this.basePage = new BasePage(page);
-        this.headerComponent = new HeaderComponent(page);
-        this.homePage =new BasePage(page);
-        this.productSection = new ProductSection(page);
-        this.cartPage = new CartPage(page);
-        this.productDetailPage = new ProductDetailPage(page);
-        this.addedModal = new AddedModal(page);
-    }
+    private ProductSection productSection = new ProductSection();
+    private  CartPage cartPage = new CartPage();
+    private  ProductDetailPage productDetailPage    = new ProductDetailPage();
+    private  AddedModal addedModal = new AddedModal();
+
+
+
 
     // ======================== Add products to the cart =================
 

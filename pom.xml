@@ -100,15 +100,6 @@
                         <version>1.11.4</version> <!-- Match your JUnit version -->
                     </dependency>
                 </dependencies>
-
-                <configuration>
-                    <parallel>methods</parallel>
-                    <threadCount>4</threadCount>
-                    <useUnlimitedThreads>true</useUnlimitedThreads>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
-                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -2,9 +2,12 @@ package com.mycommerce.pages;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.mycommerce.utilities.PlaywrightManager;
+import lombok.Getter;
 
+@Getter
 public class ProductDetailPage {
-    private final Page page;
+    private Page page;
 
     // ============== Locators ==================
     private final Locator productDetails;
@@ -23,8 +26,8 @@ public class ProductDetailPage {
 
 
 
-    public ProductDetailPage(Page page) {
-        this.page = page;
+    public ProductDetailPage() {
+        this.page = PlaywrightManager.getPage();
         this.productDetails = page.locator(".product-details");
         this.productName = page.locator("div[class='product-information'] h2");
         this.productCategory = page.locator("div.product-information h2 >> xpath=following-sibling::p").first();
@@ -44,50 +47,6 @@ public class ProductDetailPage {
     }
 
 
-    public Locator getProductDetails() {
-        return productDetails;
-    }
-
-    public Locator getProductName() {
-        return productName;
-    }
-
-    public Locator getProductCategory() {
-        return productCategory;
-    }
-
-    public Locator getProductPrice() {
-        return productPrice;
-    }
-
-    public Locator getAvailability() {
-        return availability;
-    }
-
-    public Locator getCondition() {
-        return condition;
-    }
-
-    public Locator getBrand() {
-        return brand;
-    }
-
-    public Locator getQuantityInput() {
-        return quantityInput;
-    }
-
-    public Locator getAddToCartBtnOnProductDetailPage() {
-        return addToCartBtnOnProductDetailPage;
-    }
-
-    public Locator getReviewHeading() {
-        return reviewHeading;
-    }
-
-    public Locator getReviewForm() {
-        return reviewForm;
-    }
-
     public String increaseProductQuantityTo(int quantity) {
         quantityInput.clear();
         quantityInput.fill(String.valueOf(quantity));
@@ -97,10 +56,6 @@ public class ProductDetailPage {
 
     public void clickAddToCartBtn() {
         addToCartBtnOnProductDetailPage.click();
-    }
-
-    public AddedModal navigateToAddedModal() {
-        return new AddedModal(page);
     }
 
     // =========== write your review =================

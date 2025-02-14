@@ -3,20 +3,21 @@ package com.mycommerce.pages;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.mycommerce.utilities.PlaywrightManager;
 import lombok.Getter;
 
 
 @Getter
 public class FooterComponent {
 
-    private final Page page;
+    private Page page;
 
     private final Locator subscribeInputBox;
     private final Locator subscribeArrow;
     private final Locator subscribeSuccessMessage;
 
-    public FooterComponent(Page page) {
-        this.page = page;
+    public FooterComponent() {
+        this.page = PlaywrightManager.getPage();
         this.subscribeInputBox = page.locator("#susbscribe_email");
         this.subscribeArrow = page.locator("#subscribe");
         this.subscribeSuccessMessage = page.locator("#footer .alert-success.alert");

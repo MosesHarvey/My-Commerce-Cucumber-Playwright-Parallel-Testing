@@ -3,15 +3,13 @@ package com.mycommerce.pages;
 import com.github.javafaker.Faker;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.AriaRole;
-import com.mycommerce.appdata.AccountInfo;
-import com.mycommerce.utilities.ConfigReader;
+import com.mycommerce.utilities.PlaywrightManager;
 import lombok.Getter;
 
 @Getter
 public class RegisterPage {
 
-    private final Page page;
+    private Page page;
     private Faker faker;
     private final  Locator enterAccounInformationHeading;
     private final Locator registerNameBox;
@@ -29,8 +27,8 @@ public class RegisterPage {
 
 
 
-    public RegisterPage(Page page) {
-        this.page = page;
+    public RegisterPage() {
+        this.page = PlaywrightManager.getPage();
         this.faker = new Faker();
         this.enterAccounInformationHeading =  page.getByText("ENTER ACCOUNT INFORMATION").first();
         this.registerNameBox = page.getByLabel("Name *", new Page.GetByLabelOptions().setExact(true));
@@ -52,23 +50,25 @@ public class RegisterPage {
     public String getEnterAccountInformationHeading() {
         return enterAccounInformationHeading.innerText();
     }
-    public void fillAccountInfo(){
-page.getByLabel("Mr.").check();
-        String fullName = faker.name().fullName();
+    public void fillAccountInfo(String fullName, String password){
+
+        // filling account info
+        page.getByLabel("Mr.").check();
         registerNameBox.fill(fullName);
-        AccountInfo.name =fullName;
-      registerPasswordBox.fill(faker.internet().password());
+        registerPasswordBox.fill(password);
 
     }
-    public void fillAddressInfo(){
-        fistNameBox.fill(faker.name().firstName());
-        lastNameBox.fill(faker.name().lastName());
-        addressBox.fill(faker.address().streetAddress());
+    public void fillAddressInfo(String firstName, String lastName, String address, String city, String state, String zipCode, String phoneNumber){
+
+        // filling address info
+        fistNameBox.fill(firstName);
+        lastNameBox.fill(lastName);
+        addressBox.fill(address);
        // countryBox.fill(faker.address().country());
-        stateBox.fill(faker.address().state());
-        cityBox.fill(faker.address().city());
-        zipCodeBox.fill(faker.address().zipCode());
-        mobileNumberBox.fill(faker.phoneNumber().cellPhone());
+        stateBox.fill(state);
+        cityBox.fill(city);
+        zipCodeBox.fill(zipCode);
+        mobileNumberBox.fill(phoneNumber);
 
     }
 

@@ -5,17 +5,18 @@ package com.mycommerce.pages;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
+import com.mycommerce.utilities.PlaywrightManager;
 
 import static com.microsoft.playwright.options.WaitForSelectorState.VISIBLE;
 
 
 public class BasePage {
-    private final Page page;
+    private  Page page;
     private final Locator consentBtn;
     private final Locator scrollUp;
 
-    public BasePage(Page page) {
-        this.page = page;
+    public BasePage() {
+        this.page = PlaywrightManager.getPage();
         //Locators
         this.consentBtn = page.locator("button:has-text('Consent')");
         this.scrollUp = page.locator("#scrollUp");
@@ -32,15 +33,17 @@ public class BasePage {
 
     }
 
-    public static void navigateToGivenUrl(Page page, String url){
-        page.navigate(url);
+    public void navigateToGivenUrl( String url){
+        this.page.navigate(url);
 
     }
 
+  public String getCurrentUrl(){
+        return this.page.url();
+  }
 
 
-
-    public static boolean isElementWithTextVisible(Page page, String visibleText) {
+    public boolean isElementWithTextVisible(String visibleText) {
         try {
             // Locate the text and wait for its visibility
             Locator textLocator = page.getByText(visibleText).first();
@@ -60,14 +63,14 @@ public class BasePage {
     }
 
 
-    public static String getPageTitle(Page page){
-        return page.title();
+    public String getPageTitle(){
+        return this.page.title();
     }
 
 
-    public static void acceptAlert(Page page) {
+    public void acceptAlert() {
 
-        page.onDialog(dialog -> {
+        this.page.onDialog(dialog -> {
             System.out.println("Dialog message: " + dialog.message());
             dialog.accept(); // Click the OK button
         });

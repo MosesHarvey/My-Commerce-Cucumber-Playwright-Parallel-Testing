@@ -4,8 +4,8 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.LoadState;
-import com.mycommerce.appdata.AppConstant;
 import com.mycommerce.utilities.ConfigReader;
+import com.mycommerce.utilities.PlaywrightManager;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.Random;
 
 @Getter
 public class ProductSection {
-    private final Page page;
+    private Page page;
     private final Locator products;
     private final Locator productNames;
     private final Locator searchBox;
@@ -27,8 +27,8 @@ public class ProductSection {
     private final Locator featuredProductsCards;
     private final Locator recommendedsProductsCards;
 
-    public ProductSection(Page page) {
-        this.page = page;
+    public ProductSection() {
+        this.page = PlaywrightManager.getPage();
 
         this.products = page.locator(".single-products");
         this.productOverlay = page.locator(".product-overlay");

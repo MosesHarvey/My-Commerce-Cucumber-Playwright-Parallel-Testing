@@ -1,18 +1,15 @@
 package com.mycommerce.pages;
 
-import com.microsoft.playwright.Frame;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.AriaRole;
-import com.microsoft.playwright.options.WaitForSelectorState;
+import com.mycommerce.utilities.PlaywrightManager;
 import lombok.Getter;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Getter
 public class ContactUsPage {
-    private final Page page;
+    private Page page;
     private final Locator nameField;
     private final Locator emailField;
     private final Locator subjectField;
@@ -23,8 +20,8 @@ public class ContactUsPage {
     private final Locator successMessage;
 
 
-    public ContactUsPage(Page page) {
-        this.page = page;
+    public ContactUsPage() {
+        this.page = PlaywrightManager.getPage();
         this.nameField = page.locator("input[placeholder='Name']");
         this.emailField = page.locator("input[placeholder='Email']");
         this.subjectField = page.locator("input[placeholder='Subject']");

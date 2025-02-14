@@ -1,22 +1,18 @@
 package com.mycommerce.pages;
 
-
-import com.github.javafaker.Faker;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.WaitForSelectorState;
-import com.mycommerce.utilities.ConfigReader;
+import com.mycommerce.utilities.PlaywrightManager;
 import lombok.Getter;
 
 @Getter
 public class LoginSignUpPage {
 
 
-    private final Page page;
+    private Page page;
     // Locators for login
-    Faker faker;
-
 
     private final Locator userEmail;
     private final Locator passwordField;
@@ -33,11 +29,10 @@ public class LoginSignUpPage {
     private final Locator signupBtn;
 
 
-    public LoginSignUpPage(Page page) {
+    public LoginSignUpPage() {
 
 
-        this.page = page;
-        faker = new Faker();
+        this.page = PlaywrightManager.getPage();
         //locators for login
 
         this.userEmail = page.locator("input[data-qa='login-email']");
@@ -76,20 +71,12 @@ public class LoginSignUpPage {
     public void clickLogoutButton(){logoutLink.click();}
 
     public String getUserName(){
-    return userName.innerText();
+        userName.waitFor();
+    return userName.textContent();
     }
 
-    public String getLoginHeader(){
-    return loginHeader.innerText();
-    }
 
-    public String getLoginPageTitle() {
-        return page.title();
-    }
 
-    public Locator getLogoutLocator() {
-        return logoutLink;
-    }
 
     public boolean isErrorMessageVisible(){
         return errorMessage.isVisible();
@@ -99,30 +86,16 @@ public class LoginSignUpPage {
         return errorMessage.innerText();
     }
 
-    public void fillRegisterEmailField(){
-        signupEmail.fill(faker.internet().emailAddress());
+    public void fillRegisterEmailField(String email){
+        signupEmail.fill(email);
 
     }
-    public void fillRegisterEmailFieldWithRegisteredEmail(){
-        signupEmail.fill(ConfigReader.get("email"));
 
-    }
-    public void fillRegisterNameField(){
-        signupName.fill(faker.name().firstName());
+    public void fillRegisterNameField(String name){
+        signupName.fill(name);
     }
     public void clickSignupButton(){
         signupBtn.click();
     }
-
-    public String getSignUpHeading(){
-        return signupHeading.textContent();
-
-    }
-
-    public RegisterPage navigateToRegisterPage() {
-        signupBtn.click();
-        return new RegisterPage(page);
-    }
-
 
 }

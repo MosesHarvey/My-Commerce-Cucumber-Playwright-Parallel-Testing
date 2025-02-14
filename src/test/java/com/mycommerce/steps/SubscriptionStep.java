@@ -1,22 +1,17 @@
 package com.mycommerce.steps;
 
 import com.github.javafaker.Faker;
-import com.microsoft.playwright.Page;
 import com.mycommerce.pages.FooterComponent;
 import com.mycommerce.pages.HeaderComponent;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import static  org.junit.jupiter.api.Assertions.*;
-public class SubscriptionStep {
-    private final Page page;
-    private HeaderComponent headerComponent;
-    private FooterComponent footerComponent;
 
-    public SubscriptionStep() {
-        this.page = Hooks.getPage();
-        headerComponent = new HeaderComponent(page);  // Initialize Header Component with Page object
-        footerComponent = new FooterComponent(page);  // Initialize Footer Component with Page object
-    }
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class SubscriptionStep {
+    private HeaderComponent headerComponent = new HeaderComponent();
+    private FooterComponent footerComponent = new FooterComponent();
 
     // ================Subscriptions to Newsletter  On Home Page ================
     @When("the user scrolls down to the footer")

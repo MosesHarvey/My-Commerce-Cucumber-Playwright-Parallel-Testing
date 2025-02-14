@@ -1,9 +1,8 @@
 package com.mycommerce.steps;
 
-import com.microsoft.playwright.Page;
 import com.mycommerce.appdata.AppConstant;
-import com.mycommerce.pages.HeaderComponent;
 import com.mycommerce.pages.BasePage;
+import com.mycommerce.pages.HeaderComponent;
 import com.mycommerce.pages.SideBarSection;
 import com.mycommerce.utilities.ConfigReader;
 import io.cucumber.java.en.Given;
@@ -11,37 +10,24 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.SoftAssertions;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HomePageStep  {
 
-    private final Page page;
-    private HeaderComponent headerComponent;
-    private SideBarSection sideBar ;
 
+    private HeaderComponent headerComponent = new HeaderComponent();
+    private SideBarSection sideBar = new SideBarSection();
+    private BasePage basePage = new BasePage();
+    private SoftAssertions soft = new SoftAssertions();
     private static String categoryName;
     private static String subcategoryName;
 
-    SoftAssertions soft;
-    private BasePage basePage;
-
-    public HomePageStep() {
-        page = Hooks.getPage();
-        basePage = new BasePage(page);
-        basePage.navigateToGivenUrl(page,ConfigReader.get("url"));
-        headerComponent = new HeaderComponent(page);
-        //page.waitForLoadState();
-
-       sideBar = new SideBarSection(page);
-       soft =   new SoftAssertions();
-    }
-
-
     @Given("the user is on the home page")
     public void the_user_is_on_the_home_page() {
-
+        basePage.navigateToGivenUrl(ConfigReader.get("url"));
         basePage.clickConsentBtn();
         System.out.println("the user on the home page");
 
@@ -51,10 +37,9 @@ public class HomePageStep  {
 
     @Then("the user should see page title {string}")
     public void the_User_Should_See_Page_Title(String title) {
-        System.out.println("Expected: "+title);
-        System.out.println("Actual: "+basePage.getPageTitle(page));
+        String actualTitle = basePage.getPageTitle();
+        assertEquals(title, actualTitle);
 
-        assertEquals(title, basePage.getPageTitle(page));
     }
 
     @Then("the user should see following tabs:")
@@ -109,7 +94,7 @@ public class HomePageStep  {
     public void the_user_verifies_that_the_category_page_is_displayed() {
         String expectedPageTitle = AppConstant.HOME_PAGE_TITLE+" - "+subcategoryName+" Products";
         System.out.println(expectedPageTitle);
-        assertEquals(expectedPageTitle, basePage.getPageTitle(page));
+        assertEquals(expectedPageTitle, basePage.getPageTitle());
     }
 
     @Then("the user should see the heading which include both category and sub category")
