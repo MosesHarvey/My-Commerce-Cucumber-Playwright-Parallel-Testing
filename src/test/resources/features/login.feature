@@ -1,4 +1,4 @@
- @login
+ @login @smoke
 Feature: Login
 
  Background:
@@ -29,7 +29,7 @@ Feature: Login
  @TC04
  Scenario: Logout User
  When the user logged in with valid credentials
-  Then Logged in as "satang" should be visible
+  Then Logged in as registered username should be visible
   When the user clicks the Logout button
  Then the user should see the heading "Login to your account"
 

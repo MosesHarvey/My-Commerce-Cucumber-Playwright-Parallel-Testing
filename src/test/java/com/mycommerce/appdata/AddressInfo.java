@@ -1,9 +1,5 @@
 package com.mycommerce.appdata;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 
 public class AddressInfo {
     public static String firstName;

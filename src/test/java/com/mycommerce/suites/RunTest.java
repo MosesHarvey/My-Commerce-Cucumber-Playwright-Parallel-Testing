@@ -18,6 +18,10 @@ import org.junit.platform.suite.api.*;
         value = "pretty,html:target/default-html-reports.html," +
         "json:target/cucumber-report.json, " +
         "rerun:target/failed_scenarios.txt")
+// Enable Cucumber parallel execution with a fixed thread count
+//@ConfigurationParameter(key = "cucumber.execution.parallel.enabled", value = "true")
+//@ConfigurationParameter(key = "cucumber.execution.parallel.config.strategy", value = "fixed")
+//@ConfigurationParameter(key = "cucumber.execution.parallel.config.fixed.parallelism", value = "4")  // Set to 4 threads
 @ConfigurationParameter(key = Constants.PARALLEL_EXECUTION_ENABLED_PROPERTY_NAME, value = "true")
 @ConfigurationParameter(key = Constants.PARALLEL_CONFIG_STRATEGY_PROPERTY_NAME, value = "fixed")
 @ConfigurationParameter(key =Constants.PARALLEL_CONFIG_FIXED_PARALLELISM_PROPERTY_NAME, value = "4")  // Set to 4 threads
